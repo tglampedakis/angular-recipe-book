@@ -9,13 +9,19 @@ import { Recipe } from "./recipes.model";
 export class RecipeService {
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe('A Test Recipe', 'This is a test.', 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2020%2F06%2F19%2FEasy-Meatloaf.jpg&q=85', [new Ingredient('Meat', 1), new Ingredient('Fries', 20)]),
-        new Recipe('Another Test Recipe', 'This is a test.', 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2020%2F06%2F19%2FEasy-Meatloaf.jpg&q=85', [new Ingredient('Meat', 1), new Ingredient('Fries', 20)])
-      ];
+    // private recipes: Recipe[] = [
+    //     new Recipe('A Test Recipe', 'This is a test.', 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2020%2F06%2F19%2FEasy-Meatloaf.jpg&q=85', [new Ingredient('Meat', 1), new Ingredient('Fries', 20)]),
+    //     new Recipe('Another Test Recipe', 'This is a test.', 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2020%2F06%2F19%2FEasy-Meatloaf.jpg&q=85', [new Ingredient('Meat', 1), new Ingredient('Fries', 20)])
+    //   ];
+    private recipes: Recipe[] = [];
     
     constructor(private slService: ShoppingListService) {
 
+    }
+
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
     }
 
     getRecipes() {
